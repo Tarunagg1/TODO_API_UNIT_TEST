@@ -1,0 +1,23 @@
+## Assigment
+
+1. Npm install
+2. npm run dev
+
+## task 1
+AUth apis
+
+1. http://localhost:8000/api/auth/register
+2. http://localhost:8000/api/auth/login
+
+## task 2
+1. create todo  -- http://localhost:8000/api/todo
+2. get single todo -- http://localhost:8000/api/todo/:id
+3. get all todo -- http://localhost:8000/api/todo
+4. delete todo -- http://localhost:8000/api/todo/:id
+5. update todo -- http://localhost:8000/api/todo/:id
+
+
+## collection link
+https://www.getpostman.com/collections/dee7413cc87096a3cda3
+
+
