@@ -3,6 +3,7 @@
 1. Npm install
 2. npm run dev
 
+
 ## task 1
 AUth apis
 
@@ -15,6 +16,9 @@ AUth apis
 3. get all todo -- http://localhost:8000/api/todo
 4. delete todo -- http://localhost:8000/api/todo/:id
 5. update todo -- http://localhost:8000/api/todo/:id
+
+## task 3 Testing
+npm run test
 
 
 ## collection link

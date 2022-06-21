@@ -7,7 +7,7 @@ const bcryptjs = require('bcryptjs');
 
 exports.registerController = async (req, res) => {
     const { name, email, password } = req.body;
-
+    console.log(req.body);
     if (!email || !password || !name) {
         return res.status(400).json({ error: "All field required" })
     }
@@ -22,7 +22,7 @@ exports.registerController = async (req, res) => {
         } else {
             newUser.save((err, udata) => {
                 if (err) return res.status(400).json({ message: err.message });
-                return res.status(200).json({ message: "Registrant successfully", udata });
+                return res.status(200).json({ message: "Registration successfully", udata });
             })
         }
     }).catch((err) => {
@@ -33,7 +33,7 @@ exports.registerController = async (req, res) => {
 exports.loginController = (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        return res.status(400).json({ error: "All field required" })
+        return res.status(400).json({ message: "All field required" })
     }
 
     registermodal.findOne({ email })
@@ -41,14 +41,14 @@ exports.loginController = (req, res) => {
             if (err || !user) {
                 return res.status(400)
                     .json({
-                        error: "User not exist"
+                        message: "User not exist"
                     })
             }
 
             if (!user.isactive) {
                 return res.status(400)
                     .json({
-                        error: "Account not active"
+                        message: "Account not active"
                     })
             }
             if (bcryptjs.compareSync(password, user.password)) {
@@ -56,16 +56,17 @@ exports.loginController = (req, res) => {
                     _id: user._id
                 }, process.env.JWT_LOGIN_SECRET, { expiresIn: '7d' })
 
-                const { name, email, role } = user;
+                const { name, email } = user;
 
                 return res.status(200).json({
                     token,
-                    user: { name, email, role }
+                    user: { name, email },
+                    message:"login success"
                 })
             } else {
                 return res.status(400)
                     .json({
-                        error: "Invalid password"
+                        message: "Invalid password"
                     })
             }
 

@@ -6,7 +6,7 @@ const todoModel = require('../modal/todo.model');
 const createTodo = async (req, res) => {
     const { title, text } = req.body;
     if (!title || !text) {
-        return res.status(400).json({ err: "title or text required" })
+        return res.status(400).json({ message: "title or text required" })
     }
     try {
         const newTodo = await new todoModel({ title: title, text: text });
@@ -19,6 +19,9 @@ const createTodo = async (req, res) => {
 
 
 const getSingletodo = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ message: "todo id required" })
+    }
     try {
         const resp = await todoModel.findById(req.params.id);
         return res.status(200).json({ message: "todo", data: resp });
@@ -30,7 +33,6 @@ const getSingletodo = async (req, res) => {
 
 
 const getAllTodo = async (req, res) => {
-    console.log('iji');
     try {
         const resp = await todoModel.find({});
         return res.status(200).json({ message: "todo list", data: resp });
@@ -42,6 +44,9 @@ const getAllTodo = async (req, res) => {
 
 
 const deleteTodoById = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ message: "todo id required" })
+    }
     try {
         const resp = await todoModel.findByIdAndDelete(req.params.id);
         return res.status(200).json({ message: "todo deleted", data: resp });
@@ -53,6 +58,9 @@ const deleteTodoById = async (req, res) => {
 
 
 const updateTodo = async (req, res) => {
+    if (!req.params.id) {
+        return res.status(400).json({ message: "todo id required" })
+    }
     try {
         const resp = await todoModel.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true });
         return res.status(200).json({ message: "toto updated", data: resp });
